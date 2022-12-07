@@ -18,8 +18,8 @@ class DB {
 
         try {
             static::$pdo = new PDO($config['DB_DRIVER'] . ':host=' . $config['DB_HOST'] . ';dbname=' . $config['DB_NAME'],
-                $config['user'],
-                $config['password'],
+                $config['DB_USER'],
+                $config['DB_PASSWORD'],
                 $defaultOptions);
         } catch (\PDOException $error) {
             throw new \PDOException($error->getMessage() . $error->getCode());

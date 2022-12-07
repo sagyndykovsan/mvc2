@@ -8,6 +8,7 @@ use App\Router;
 use App\Request;
 use Dotenv\Dotenv;
 use App\Controllers\HomeController;
+use App\Response;
 
 require_once '../vendor/autoload.php';
 
@@ -19,8 +20,9 @@ define('VIEW_PATH', __DIR__ . '/../views');
 $request = new Request();
 $router = new Router($request);
 $config = new Config();
-$app = new App($router, $config);
+$app = new App($router, new Response(), $config);
 
 $router->get('/', [HomeController::class, 'index']);
+$router->get('/(.+)', [HomeController::class, 'post']);
 
 $app->run();

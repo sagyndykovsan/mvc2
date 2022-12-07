@@ -6,12 +6,15 @@ namespace App;
 
 use App\DB;
 use App\Router;
+use App\Response;
 use App\Exceptions\RouteNotFoundException;
 
 class App {
-    public function __construct(private Router $router, Config $config)
+    public function __construct(private Router $router, 
+        protected Response $response,
+        Config $config)
     {
-        DB::connect($config->db ?? []);
+        // DB::connect($config->db ?? []);
     }
 
     public function run()
@@ -19,6 +22,7 @@ class App {
         try {
             echo $this->router->resolve();
         } catch (RouteNotFoundException) {
+            $this->response->setStatusCode(404);
             echo view('_404');
         }
     }

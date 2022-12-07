@@ -9,4 +9,9 @@ class HomeController {
     {
        return view('homepage'); 
     }
+
+    public function post(string $postnumber)
+    {
+        return $postnumber;
+    }
 }

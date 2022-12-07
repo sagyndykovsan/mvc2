@@ -33,7 +33,18 @@ class Router {
         $method = $this->request->getMethod();
         $path = $this->request->getPath();
 
-        $action = $this->routes[$method][$path];
+        $action = null;
+        $parameters = [];
+
+        foreach($this->routes[$method] as $route => $callback) {
+            if (preg_match("#^{$route}$#", $path, $matches) === 1) {
+                unset($matches[0]);
+                $action = $callback;
+
+                $parameters = $matches;
+                break;
+            }
+        }
 
         if (! $action) {
             throw new RouteNotFoundException();
@@ -47,13 +58,13 @@ class Router {
                 $callback = $action[1];
 
                 if (method_exists($class , $callback)) {
-                    return call_user_func_array([$class, $callback], []);
+                    return call_user_func_array([$class, $callback], $parameters);
                 }
             }
         }
 
         if (is_callable($action)) {
-            return call_user_func_array($action, []);
+            return call_user_func_array($action, $parameters);
         }
 
         throw new RouteNotFoundException();

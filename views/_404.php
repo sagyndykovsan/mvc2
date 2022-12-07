@@ -1,1 +1,1 @@
-error
+404 RESOURCE NOT FOUND
