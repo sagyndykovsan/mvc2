@@ -14,9 +14,18 @@ class HomeController {
        ]);
     }
 
-    public function post(Request $request, string $postnumber)
+    public function form(Request $request)
     {
-        echo $request->name;
-        return $postnumber;
+        return view('form');
+    }
+
+    public function showFormFields(Request $request)
+    {
+        return view('form', [
+            'formData' => [
+                'name' => $request->name,
+                'age' => $request->age
+            ]
+        ]);
     }
 }

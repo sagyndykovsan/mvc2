@@ -3,10 +3,8 @@
 declare(strict_types=1);
 
 use App\App;
-use App\Config;
 use App\Router;
 use App\Request;
-use Dotenv\Dotenv;
 use App\Controllers\HomeController;
 use App\Response;
 
@@ -16,10 +14,11 @@ define('VIEW_PATH', __DIR__ . '/../views');
 
 $request = new Request();
 $router = new Router($request);
-$config = new Config();
-$app = new App($router, new Response(), $config);
+$app = new App($router, new Response());
 
 $router->get('/', [HomeController::class, 'index']);
-$router->get('/(.+)', [HomeController::class, 'post']);
+$router->get('/form', [HomeController::class, 'form']);
+$router->post('/form', [HomeController::class, 'showFormFields']);
+$router->get('/(.+)', [DynamicRouteTest::class, 'index']);
 
 $app->run();
