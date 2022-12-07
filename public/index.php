@@ -12,9 +12,6 @@ use App\Response;
 
 require_once '../vendor/autoload.php';
 
-$dotenv = Dotenv::createImmutable(dirname(__DIR__));
-$dotenv->load();
-
 define('VIEW_PATH', __DIR__ . '/../views');
 
 $request = new Request();

@@ -34,14 +34,14 @@ class Router {
         $path = $this->request->getPath();
 
         $action = null;
-        $parameters = [];
+        $parameters = [$this->request];
 
         foreach($this->routes[$method] as $route => $callback) {
             if (preg_match("#^{$route}$#", $path, $matches) === 1) {
                 unset($matches[0]);
                 $action = $callback;
 
-                $parameters = $matches;
+                $parameters = array_merge($parameters, $matches);
                 break;
             }
         }

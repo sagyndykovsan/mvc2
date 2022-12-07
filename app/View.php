@@ -23,6 +23,10 @@ class View {
             return (string) view('_404');
        }
 
+       foreach($this->parameters as $key => $value) {
+        $$key = $value;
+       }
+
        ob_start();
        include $viewPath;
 

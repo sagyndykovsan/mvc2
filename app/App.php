@@ -11,10 +11,8 @@ use App\Exceptions\RouteNotFoundException;
 
 class App {
     public function __construct(private Router $router, 
-        protected Response $response,
-        Config $config)
+        protected Response $response)
     {
-        // DB::connect($config->db ?? []);
     }
 
     public function run()
